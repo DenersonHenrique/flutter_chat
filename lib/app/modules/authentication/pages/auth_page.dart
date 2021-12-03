@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/auth_form_model.dart';
 import '../widgets/auth_form_widget.dart';
 
 class AuthPage extends StatefulWidget {
@@ -9,14 +10,37 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  bool _isLoading = false;
+
+  void _handleSubmit(AuthFormModel formModel) {
+    setState(() => _isLoading = true);
+
+    // setState(() => _isLoading = false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: const Center(
-        child: SingleChildScrollView(
-          child: AuthFormWidget(),
-        ),
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: SingleChildScrollView(
+              child: AuthFormWidget(
+                onSubmit: _handleSubmit,
+              ),
+            ),
+          ),
+          if (_isLoading)
+            Container(
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(0, 0, 0, 0.5),
+              ),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        ],
       ),
     );
   }

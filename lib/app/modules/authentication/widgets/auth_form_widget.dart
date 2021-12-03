@@ -1,8 +1,16 @@
+import 'dart:io';
+import 'user_image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/app/modules/authentication/models/auth_form_model.dart';
+import '../models/auth_form_model.dart';
+import '../../../constants/app_string.dart';
 
 class AuthFormWidget extends StatefulWidget {
-  const AuthFormWidget({Key? key}) : super(key: key);
+  final void Function(AuthFormModel) onSubmit;
+
+  const AuthFormWidget({
+    required this.onSubmit,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AuthFormWidget> createState() => _AuthFormWidgetState();
@@ -12,8 +20,28 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
   final _authFormModel = AuthFormModel();
   final _formKey = GlobalKey<FormState>();
 
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Theme.of(context).errorColor,
+      ),
+    );
+  }
+
+  void _handleImagePick(File image) {
+    _authFormModel.image = image;
+  }
+
   void _submit() {
-    _formKey.currentState?.validate();
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) return;
+
+    if (_authFormModel.image == null && _authFormModel.isSignUp) {
+      return _showError('Imagem não selecionada.');
+    }
+
+    widget.onSubmit(_authFormModel);
   }
 
   @override
@@ -23,38 +51,74 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: <Widget>[
+              if (_authFormModel.isSignUp)
+                UserImagePickerWidget(
+                  onImagePick: _handleImagePick,
+                ),
               if (_authFormModel.isSignUp)
                 TextFormField(
                   key: const ValueKey('name'),
                   initialValue: _authFormModel.name,
                   onChanged: (name) => _authFormModel.name = name,
-                  decoration: const InputDecoration(labelText: 'Nome'),
+                  decoration: InputDecoration(
+                    labelText: AppString.nameTextFieldLabel,
+                  ),
+                  validator: (_name) {
+                    final name = _name ?? '';
+                    if (name.trim().length < 5) {
+                      return 'Nome, mínimo de 5 caracteres.';
+                    }
+                    return null;
+                  },
                 ),
               TextFormField(
                 key: const ValueKey('email'),
                 initialValue: _authFormModel.email,
                 onChanged: (email) => _authFormModel.email = email,
-                decoration: const InputDecoration(labelText: 'E-mail'),
+                decoration: InputDecoration(
+                  labelText: AppString.emailTextFieldLabel,
+                ),
+                validator: (_email) {
+                  final email = _email ?? '';
+                  if (email.isEmpty || !email.contains('@')) {
+                    return 'Informe um e-mail válido.';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 obscureText: true,
                 key: const ValueKey('password'),
                 initialValue: _authFormModel.password,
                 onChanged: (password) => _authFormModel.password = password,
-                decoration: const InputDecoration(labelText: 'Senha'),
+                decoration: InputDecoration(
+                  labelText: AppString.passwordTextFieldLabel,
+                ),
+                validator: (_password) {
+                  final password = _password ?? '';
+                  if (password.length < 6) {
+                    return 'Senha, mínimo de 6 caracteres.';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 12.0),
               ElevatedButton(
                 onPressed: _submit,
                 child: Text(
-                  _authFormModel.isLogin ? 'Entrar' : 'Cadastrar',
+                  _authFormModel.isLogin
+                      ? AppString.signInTextFieldLabel
+                      : AppString.signUpTextFieldLabel,
                 ),
               ),
               TextButton(
                 child: Text(
-                  _authFormModel.isLogin ? 'Nova conta' : 'Possui conta?',
+                  _authFormModel.isLogin
+                      ? AppString.newAccountTextFieldLabel
+                      : AppString.oldAccountTextFieldLabel,
                 ),
                 onPressed: () => setState(
                   () {
