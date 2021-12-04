@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/auth_form_model.dart';
 import '../widgets/auth_form_widget.dart';
+import '../services/auth/chat/auth_service.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -18,8 +19,18 @@ class _AuthPageState extends State<AuthPage> {
 
       if (formModel.isLogin) {
         // Login
+        await AuthService().login(
+          formModel.email,
+          formModel.password,
+        );
       } else {
         // Signup
+        await AuthService().signUp(
+          formModel.name,
+          formModel.email,
+          formModel.password,
+          formModel.image,
+        );
       }
     } catch (e) {
       // Tratar error
