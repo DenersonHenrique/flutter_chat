@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../services/auth_service.dart';
 import '../models/auth_form_model.dart';
 import '../widgets/auth_form_widget.dart';
-import '../services/auth/chat/auth_service.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);

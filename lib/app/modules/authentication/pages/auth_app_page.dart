@@ -1,9 +1,9 @@
-import 'chat.page.dart';
 import 'auth_page.dart';
-import '../models/chat_user.dart';
+import '../services/auth_service.dart';
 import 'package:flutter/material.dart';
+import '../models/chat_user_model.dart';
+import '../../chat/pages/chat.page.dart';
 import '../../../common/pages/loading_page.dart';
-import '../services/auth/chat/auth_service.dart';
 
 class AuthAppPage extends StatelessWidget {
   const AuthAppPage({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class AuthAppPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<ChatUser?>(
+      body: StreamBuilder<ChatUserModel?>(
         stream: AuthService().userChanges,
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {

@@ -1,10 +1,10 @@
-class ChatUser {
+class ChatUserModel {
   final String id;
   final String name;
   final String email;
   final String imageUrl;
 
-  ChatUser({
+  ChatUserModel({
     required this.id,
     required this.name,
     required this.email,

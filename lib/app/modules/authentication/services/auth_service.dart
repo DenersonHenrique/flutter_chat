@@ -1,12 +1,11 @@
 import 'dart:io';
 import 'auth_mock_service.dart';
-
-import '../../../models/chat_user.dart';
+import '../models/chat_user_model.dart';
 
 abstract class AuthService {
-  ChatUser? get currentUser;
+  ChatUserModel? get currentUser;
 
-  Stream<ChatUser?> get userChanges;
+  Stream<ChatUserModel?> get userChanges;
 
   Future<void> signUp(
     String name,

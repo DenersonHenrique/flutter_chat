@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'user_image_picker.dart';
+import 'user_image_picker_widget.dart';
 import 'package:flutter/material.dart';
 import '../models/auth_form_model.dart';
 import '../../../constants/app_string.dart';
