@@ -1,7 +1,6 @@
 import 'constants/app_string.dart';
 import 'package:flutter/material.dart';
-import 'common/pages/loading_page.dart';
-import 'modules/authentication/pages/auth_page.dart';
+import 'modules/authentication/pages/auth_app_page.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class _AppWidgetState extends State<AppWidget> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: const AuthPage(),
+      home: const AuthAppPage(),
     );
   }
 }

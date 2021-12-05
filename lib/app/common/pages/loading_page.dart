@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constants/app_string.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({Key? key}) : super(key: key);
@@ -9,11 +10,11 @@ class LoadingPage extends StatelessWidget {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-              RefreshProgressIndicator(),
+            children: <Widget>[
+              const RefreshProgressIndicator(),
               Text(
-                'Carregando...',
-                style: TextStyle(
+                AppString.loadingText,
+                style: const TextStyle(
                   color: Colors.white,
                 ),
               ),
