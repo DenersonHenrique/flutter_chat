@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../services/chat_service.dart';
 import '../models/chat_message_model.dart';
 import '../../authentication/services/auth_service.dart';
+import 'package:flutter_chat/app/constants/app_string.dart';
 
 class MessagesWidget extends StatelessWidget {
   const MessagesWidget({Key? key}) : super(key: key);
@@ -18,8 +19,8 @@ class MessagesWidget extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(
-            child: Text('Sem mensagens. Vamos conversar?'),
+          return Center(
+            child: Text(AppString.emptyMessages),
           );
         } else {
           final messages = snapshot.data!;

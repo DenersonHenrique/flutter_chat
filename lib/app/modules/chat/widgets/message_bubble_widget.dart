@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../models/chat_message_model.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
+  static const _defaultImage = 'assets/images/avatar.png';
   final ChatMessageModel message;
   final bool belongsToCurrentUser;
 
@@ -10,6 +12,23 @@ class MessageBubbleWidget extends StatelessWidget {
     required this.belongsToCurrentUser,
     Key? key,
   }) : super(key: key);
+
+  Widget _showUserImage(String imageUrl) {
+    ImageProvider? provider;
+    final uri = Uri.parse(imageUrl);
+
+    if (uri.path.contains(_defaultImage)) {
+      provider = const AssetImage(_defaultImage);
+    } else if (uri.scheme.contains('http')) {
+      provider = NetworkImage(uri.toString());
+    } else {
+      provider = FileImage(File(uri.toString()));
+    }
+
+    return CircleAvatar(
+      backgroundImage: provider,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +65,9 @@ class MessageBubbleWidget extends StatelessWidget {
                 horizontal: 16,
               ),
               child: Column(
+                crossAxisAlignment: belongsToCurrentUser
+                    ? CrossAxisAlignment.end
+                    : CrossAxisAlignment.start,
                 children: [
                   Text(
                     message.userName,
@@ -56,6 +78,8 @@ class MessageBubbleWidget extends StatelessWidget {
                   ),
                   Text(
                     message.text,
+                    textAlign:
+                        belongsToCurrentUser ? TextAlign.right : TextAlign.left,
                     style: TextStyle(
                       color: belongsToCurrentUser ? Colors.black : Colors.white,
                     ),
@@ -69,9 +93,7 @@ class MessageBubbleWidget extends StatelessWidget {
           top: 0,
           left: belongsToCurrentUser ? null : 165,
           right: belongsToCurrentUser ? 165 : null,
-          child: const CircleAvatar(
-            backgroundColor: Colors.pink,
-          ),
+          child: _showUserImage(message.userImageUrl),
         ),
       ],
     );

@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import '../widgets/messages_widget.dart';
 import '../widgets/new_message_widget.dart';
 import '../../authentication/services/auth_service.dart';
+import 'package:flutter_chat/app/constants/app_string.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
 
+  @override
+  State<ChatPage> createState() => _ChatPageState();
+}
+
+class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat flutter - Cod3r'),
+        title: Text(AppString.chatPageAppBar),
         actions: [
           DropdownButton(
             icon: Icon(
@@ -21,13 +27,13 @@ class ChatPage extends StatelessWidget {
               DropdownMenuItem(
                 value: 'logout',
                 child: Row(
-                  children: const <Widget>[
-                    Icon(
+                  children: <Widget>[
+                    const Icon(
                       Icons.exit_to_app,
                       color: Colors.black87,
                     ),
-                    SizedBox(width: 10),
-                    Text('Sair'),
+                    const SizedBox(width: 10),
+                    Text(AppString.exitLabel),
                   ],
                 ),
               )

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_chat/app/constants/app_string.dart';
 
 class UserImagePickerWidget extends StatefulWidget {
   final void Function(File image) onImagePick;
@@ -32,31 +33,29 @@ class _UserImagePickerWidgetState extends State<UserImagePickerWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        CircleAvatar(
-          radius: 40.0,
-          backgroundColor: Colors.grey,
-          backgroundImage: _image != null ? FileImage(_image!) : null,
-        ),
-        TextButton(
-          onPressed: _pickImage,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(
-                Icons.image,
-                color: Theme.of(context).primaryColor,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              const Text('Adicionar imagem')
-            ],
+  Widget build(BuildContext context) => Column(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 40.0,
+            backgroundColor: Colors.grey,
+            backgroundImage: _image != null ? FileImage(_image!) : null,
           ),
-        ),
-      ],
-    );
-  }
+          TextButton(
+            onPressed: _pickImage,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  Icons.image,
+                  color: Theme.of(context).primaryColor,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(AppString.addImagePicked),
+              ],
+            ),
+          ),
+        ],
+      );
 }
