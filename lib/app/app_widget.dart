@@ -1,6 +1,8 @@
 import 'constants/app_string.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'modules/authentication/pages/auth_app_page.dart';
+import 'package:flutter_chat/app/modules/chat/services/chat_notification_service.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -14,17 +16,24 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     final ThemeData _themeData = ThemeData();
 
-    return MaterialApp(
-      title: AppString.appTitle,
-      theme: _themeData.copyWith(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: _themeData.colorScheme.copyWith(
-          primary: Colors.indigo,
-          secondary: Colors.amber,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ChatNotificationService(),
         ),
+      ],
+      child: MaterialApp(
+        title: AppString.appTitle,
+        theme: _themeData.copyWith(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          colorScheme: _themeData.colorScheme.copyWith(
+            primary: Colors.indigo,
+            secondary: Colors.amber,
+          ),
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const AuthAppPage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const AuthAppPage(),
     );
   }
 }

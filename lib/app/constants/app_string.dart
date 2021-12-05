@@ -13,4 +13,5 @@ class AppString {
   static String oldAccountTextFieldLabel = 'Possui conta?';
   static String emptyMessages = 'Sem mensagens. Vamos conversar?';
   static String sendMessage = 'Enviar mensagem...';
+  static String notificationPageAppBar = 'Notificações';
 }
