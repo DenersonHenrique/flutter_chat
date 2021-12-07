@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:async';
-
 import 'auth_service.dart';
 import '../models/chat_user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,7 +57,8 @@ class AuthFirebaseService implements AuthService {
     await credential.user?.updatePhotoURL(imageUrl);
 
     // 3. Save user in database.
-    await _saveChatUserModel(_toChatUserModel(credential.user!, imageUrl));
+    _currentUser = _toChatUserModel(credential.user!, name, imageUrl);
+    await _saveChatUserModel(_currentUser!);
   }
 
   @override
@@ -84,10 +84,14 @@ class AuthFirebaseService implements AuthService {
     });
   }
 
-  static ChatUserModel _toChatUserModel(User user, [String? imageUrl]) =>
+  static ChatUserModel _toChatUserModel(
+    User user, [
+    String? name,
+    String? imageUrl,
+  ]) =>
       ChatUserModel(
         id: user.uid,
-        name: user.displayName ?? user.email!.split('@')[0],
+        name: name ?? user.displayName ?? user.email!.split('@')[0],
         email: user.email!,
         imageUrl: imageUrl ?? user.photoURL ?? 'assets/images/avatar.png',
       );

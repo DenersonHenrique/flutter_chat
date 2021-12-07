@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/app/modules/chat/models/chat_notification_model.dart';
-import 'package:flutter_chat/app/modules/chat/pages/notification_page.dart';
 import 'package:provider/provider.dart';
+import 'notification_page.dart';
 import '../widgets/messages_widget.dart';
 import '../widgets/new_message_widget.dart';
 import '../../../constants/app_string.dart';
@@ -86,15 +85,16 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => Provider.of<ChatNotificationService>(
-          context,
-          listen: false,
-        ).add(
-          ChatNotificationModel(title: 'title', body: 'body'),
-        ),
-      ),
+      // Test add notifications
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.add),
+      //   onPressed: () => Provider.of<ChatNotificationService>(
+      //     context,
+      //     listen: false,
+      //   ).add(
+      //     ChatNotificationModel(title: 'title', body: 'body'),
+      //   ),
+      // ),
     );
   }
 }
