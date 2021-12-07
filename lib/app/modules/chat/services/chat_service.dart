@@ -4,7 +4,7 @@ import '../../authentication/models/chat_user_model.dart';
 
 abstract class ChatService {
   Stream<List<ChatMessageModel>> messagesStream();
-  Future<ChatMessageModel> save(String text, ChatUserModel user);
+  Future<ChatMessageModel?> save(String text, ChatUserModel user);
 
   factory ChatService() => ChatMockService();
 }
