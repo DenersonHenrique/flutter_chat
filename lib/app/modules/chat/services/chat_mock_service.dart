@@ -8,6 +8,7 @@ class ChatMockService implements ChatService {
   static final List<ChatMessageModel> _messages = [];
 
   static MultiStreamController<List<ChatMessageModel>>? _controller;
+
   static final _messagesStream =
       Stream<List<ChatMessageModel>>.multi((controller) {
     _controller = controller;
