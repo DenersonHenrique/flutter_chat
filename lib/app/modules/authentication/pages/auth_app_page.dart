@@ -1,13 +1,12 @@
-import 'package:flutter_chat/app/modules/chat/services/chat_notification_service.dart';
-import 'package:provider/provider.dart';
-
 import 'auth_page.dart';
 import '../services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/chat_user_model.dart';
 import '../../chat/pages/chat.page.dart';
 import '../../../common/pages/loading_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../../chat/services/chat_notification_service.dart';
 
 class AuthAppPage extends StatelessWidget {
   const AuthAppPage({Key? key}) : super(key: key);

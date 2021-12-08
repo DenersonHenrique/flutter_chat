@@ -1,6 +1,6 @@
+import 'notification_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'notification_page.dart';
 import '../widgets/messages_widget.dart';
 import '../widgets/new_message_widget.dart';
 import '../../../constants/app_string.dart';
@@ -40,7 +40,7 @@ class _ChatPageState extends State<ChatPage> {
                       Text(AppString.exitLabel),
                     ],
                   ),
-                )
+                ),
               ],
               onChanged: (value) {
                 if (value == 'logout') {
@@ -70,7 +70,7 @@ class _ChatPageState extends State<ChatPage> {
                     style: const TextStyle(fontSize: 12),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ],

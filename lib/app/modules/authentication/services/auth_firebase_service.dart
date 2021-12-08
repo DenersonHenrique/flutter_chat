@@ -2,9 +2,10 @@ import 'dart:io';
 import 'dart:async';
 import 'auth_service.dart';
 import '../models/chat_user_model.dart';
+import '../../../constants/image_assets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AuthFirebaseService implements AuthService {
   static ChatUserModel? _currentUser;
@@ -93,6 +94,6 @@ class AuthFirebaseService implements AuthService {
         id: user.uid,
         name: name ?? user.displayName ?? user.email!.split('@')[0],
         email: user.email!,
-        imageUrl: imageUrl ?? user.photoURL ?? 'assets/images/avatar.png',
+        imageUrl: imageUrl ?? user.photoURL ?? ImageAssets.userDefaultPhoto,
       );
 }

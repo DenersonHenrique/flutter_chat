@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../models/chat_message_model.dart';
+import '../../../constants/image_assets.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
-  static const _defaultImage = 'assets/images/avatar.png';
+  static final _defaultImage = ImageAssets.userDefaultPhoto;
   final ChatMessageModel message;
   final bool belongsToCurrentUser;
 
@@ -18,7 +19,7 @@ class MessageBubbleWidget extends StatelessWidget {
     final uri = Uri.parse(imageUrl);
 
     if (uri.path.contains(_defaultImage)) {
-      provider = const AssetImage(_defaultImage);
+      provider = AssetImage(_defaultImage);
     } else if (uri.scheme.contains('http')) {
       provider = NetworkImage(uri.toString());
     } else {

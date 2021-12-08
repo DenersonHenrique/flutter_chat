@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import '../services/chat_service.dart';
+import '../../authentication/services/auth_service.dart';
 import 'package:flutter_chat/app/constants/app_string.dart';
-import 'package:flutter_chat/app/modules/chat/services/chat_service.dart';
-import 'package:flutter_chat/app/modules/authentication/services/auth_service.dart';
 
 class NewMessageWidget extends StatefulWidget {
   const NewMessageWidget({Key? key}) : super(key: key);

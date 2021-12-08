@@ -3,13 +3,14 @@ import 'dart:math';
 import 'dart:async';
 import 'auth_service.dart';
 import '../models/chat_user_model.dart';
+import '../../../constants/image_assets.dart';
 
 class AuthMockService implements AuthService {
   static final _defaultUser = ChatUserModel(
     id: '10',
     name: 'Test',
     email: 'test@email.com.br',
-    imageUrl: 'assets/images/avatar.png',
+    imageUrl: ImageAssets.userDefaultPhoto,
   );
 
   static final Map<String, ChatUserModel> _users = {
